@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) 
+    {
+        int n = haystack.size(), m = needle.size(), p = 0;
+        while(p + m - 1 < n)
+        {
+            if(haystack.substr(p,m) == needle)
+            {
+                return p;
+            }
+            while(p++ + m - 1 < n && haystack[p] != needle[0]);
+        }
+        return -1;
+    }
+};
