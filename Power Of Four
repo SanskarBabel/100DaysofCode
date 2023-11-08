@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool isPowerOfFour(int n) 
+    {
+        if(n == 1)
+        {
+            return true;
+        }
+        if(n <= 0)
+        {
+            return false;
+        }
+
+        double sqrtn = sqrt(n);
+        double log2n = log2(sqrtn);
+
+        return log2n == (int)log2n;
+    }
+};
