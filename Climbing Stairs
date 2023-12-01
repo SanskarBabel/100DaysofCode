@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int climbStairs(int n) 
+    {
+        int result = 0;
+        if(n<=3)
+        {
+            return n;
+        }
+        int prev = 3, penultimate = 2;
+        for(int i = 4; i <= n; i++)
+        {
+            result = penultimate + prev;
+            penultimate = prev;
+            prev = result;
+        }
+        return result;
+    }
+};
