@@ -1,0 +1,37 @@
+class Solution {
+public:
+    long long maxProfit(vector<int>& prices, vector<int>& strategy, int k) {
+        int n = prices.size();
+        int h = k / 2;
+
+        long long p_original = 0;
+        for (int i = 0; i < strategy.size(); ++i) {
+            p_original += (long long)strategy[i] * prices[i];
+        }
+
+        // Calculate for the first window (j=0)
+        long long new_profit_segment = 0;
+        for (int i = h; i < k; ++i) {
+            new_profit_segment += prices[i];
+        }
+
+        long long old_profit_segment = 0;
+        for (int i = 0; i < k; ++i) {
+            old_profit_segment += (long long)strategy[i] * prices[i];
+        }
+
+        long long current_delta = new_profit_segment - old_profit_segment;
+        long long max_delta = max(0LL, current_delta);
+
+        // Slide the window from j=1 to n-k
+        for (int j = 1; j <= n - k; ++j) {
+            old_profit_segment = old_profit_segment - ((long long)strategy[j-1] * prices[j-1]) + ((long long)strategy[j+k-1] * prices[j+k-1]);
+            new_profit_segment = new_profit_segment - prices[j-1+h] + prices[j+k-1];
+
+            current_delta = new_profit_segment - old_profit_segment;
+            max_delta = max(max_delta, current_delta);
+        }
+
+        return p_original + max_delta;
+    }
+};
